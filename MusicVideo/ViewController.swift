@@ -10,12 +10,16 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var displayLable: UILabel!
     var videos = [Videos]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let api = APIManager()
         api.loadData("https://itunes.apple.com/us/rss/topmusicvideos/limit=10/json", completion: didLoadData)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachStatusChanged", name: "ReachStatusChanged", object: nil)
+        reachStatusChanged()
     }
 
 
@@ -26,6 +30,15 @@ class ViewController: UIViewController {
         for (index, item) in videos.enumerate(){
             print("\(index + 1) \(item.vName)")
         }
+    }
+    
+    func reachStatusChanged(){
+        print("called ......")
+        displayLable.text = reachabilityStatus
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "ReachStatusChanged", object: nil)
     }
 
 }
