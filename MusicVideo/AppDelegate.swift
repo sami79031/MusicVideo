@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         internetCheck = Reachability.reachabilityForInternetConnection()
         internetCheck?.startNotifier()
-        
+        statusChangedWithReachability(internetCheck!)
         //caching to 0
 //        let URLCache = NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
 //        NSURLCache.setSharedURLCache(URLCache)

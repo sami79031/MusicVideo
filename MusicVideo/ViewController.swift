@@ -33,7 +33,6 @@ class ViewController: UIViewController {
     }
     
     func reachStatusChanged(){
-        print("called ......")
         displayLable.text = reachabilityStatus
     }
     
