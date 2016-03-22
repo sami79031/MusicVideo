@@ -15,9 +15,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var videos = [Videos]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        let api = APIManager()
-        api.loadData("https://itunes.apple.com/us/rss/topmusicvideos/limit=50/json", completion: didLoadData)
-        
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachStatusChanged", name: "ReachStatusChanged", object: nil)
         reachStatusChanged()
     }
@@ -26,24 +24,54 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func didLoadData(videos: [Videos]){
         self.videos = videos
         print(reachabilityStatus)
-        
-        for (index, item) in videos.enumerate(){
-            print("\(index + 1) \(item.vName)")
-        }
-        
+
         tableView.reloadData()
     }
     
     func reachStatusChanged(){
         switch reachabilityStatus {
         case NOACCESS : view.backgroundColor = UIColor.redColor()
-        displayLable.text = "No Internet"
-        case WIFI : view.backgroundColor = UIColor.greenColor()
-        displayLable.text = "Reachable with WIFI"
-        case WWAN : view.backgroundColor = UIColor.yellowColor()
-        displayLable.text = "Reachable with Cellular"
-        default:return
+        dispatch_async(dispatch_get_main_queue()){
+          self.popUp()  
         }
+        
+        
+        default:
+            view.backgroundColor = UIColor.greenColor()
+            self.runAPI()
+            
+
+        }
+    }
+    
+    func runAPI(){
+        let api = APIManager()
+        api.loadData("https://itunes.apple.com/us/rss/topmusicvideos/limit=200/json", completion: didLoadData)
+    }
+    
+    func popUp(){
+        let alert = UIAlertController(title: "No Internet access", message: "Turn it on", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) {
+            action -> () in
+            print("Cancel")
+        }
+        let deleteAction = UIAlertAction(title: "Delete", style: .Destructive) {
+            action -> () in
+            print("delete")
+        }
+        let okAction = UIAlertAction(title: "ok", style: .Default) {
+            action -> () in
+            print("ok")
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        alert.addAction(okAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+        
+        
     }
     
     deinit{
