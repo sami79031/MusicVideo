@@ -18,6 +18,7 @@
 		26349EEF1C83BBD0004AC7F7 /* Contsants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26349EEE1C83BBD0004AC7F7 /* Contsants.swift */; };
 		26349EF11C83BD7B004AC7F7 /* MusicVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26349EF01C83BD7B004AC7F7 /* MusicVideo.swift */; };
 		26349EF61C867A34004AC7F7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 26349EF51C867A34004AC7F7 /* Reachability.m */; };
+		26F775E91CA0D1790028974D /* MusicVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F775E81CA0D1790028974D /* MusicVideoTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		26349EF31C867A33004AC7F7 /* MusicVideo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicVideo-Bridging-Header.h"; sourceTree = "<group>"; };
 		26349EF41C867A34004AC7F7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		26349EF51C867A34004AC7F7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		26F775E81CA0D1790028974D /* MusicVideoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicVideoTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				26349EBB1C83A528004AC7F7 /* ViewController.swift */,
+				26F775E81CA0D1790028974D /* MusicVideoTableViewCell.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				26349EF11C83BD7B004AC7F7 /* MusicVideo.swift in Sources */,
 				26349EBA1C83A528004AC7F7 /* AppDelegate.swift in Sources */,
 				26349EF61C867A34004AC7F7 /* Reachability.m in Sources */,
+				26F775E91CA0D1790028974D /* MusicVideoTableViewCell.swift in Sources */,
 				26349EEF1C83BBD0004AC7F7 /* Contsants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
