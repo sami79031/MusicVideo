@@ -42,6 +42,8 @@ class MusicVideoTableViewCell: UITableViewCell {
             if data != nil {
                 video.vImageData = data
                 image = UIImage(data: data!)
+            } else{
+                self.musicImage.image = UIImage(named: "imageNotAvailable")
             }
             
             //move back to main queue
