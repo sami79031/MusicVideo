@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		262C3DE81CA89A6400CB4D7A /* MusicVideoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262C3DE71CA89A6400CB4D7A /* MusicVideoDetailVC.swift */; };
 		26349EBA1C83A528004AC7F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26349EB91C83A528004AC7F7 /* AppDelegate.swift */; };
 		26349EBC1C83A528004AC7F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26349EBB1C83A528004AC7F7 /* ViewController.swift */; };
 		26349EBF1C83A528004AC7F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26349EBD1C83A528004AC7F7 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		262C3DE71CA89A6400CB4D7A /* MusicVideoDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicVideoDetailVC.swift; sourceTree = "<group>"; };
 		26349EB61C83A528004AC7F7 /* MusicVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26349EB91C83A528004AC7F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26349EBB1C83A528004AC7F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			children = (
 				26349EBB1C83A528004AC7F7 /* ViewController.swift */,
 				26F775E81CA0D1790028974D /* MusicVideoTableViewCell.swift */,
+				262C3DE71CA89A6400CB4D7A /* MusicVideoDetailVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				26349EF61C867A34004AC7F7 /* Reachability.m in Sources */,
 				26F775E91CA0D1790028974D /* MusicVideoTableViewCell.swift in Sources */,
 				26349EEF1C83BBD0004AC7F7 /* Contsants.swift in Sources */,
+				262C3DE81CA89A6400CB4D7A /* MusicVideoDetailVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
