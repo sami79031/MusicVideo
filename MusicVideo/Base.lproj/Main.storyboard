@@ -70,7 +70,7 @@
                                             <outlet property="musicImage" destination="j2f-sP-NYv" id="rNi-lq-0t6"/>
                                             <outlet property="musicTitle" destination="lhi-fz-Xzw" id="6fA-Ko-HW6"/>
                                             <outlet property="rank" destination="tKi-Q2-XXI" id="X1c-5E-IZ3"/>
-                                            <segue destination="s8p-sN-e4h" kind="show" id="5Zt-H6-XZP"/>
+                                            <segue destination="s8p-sN-e4h" kind="show" identifier="musicDetail" id="5Zt-H6-XZP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -109,6 +109,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rqy-bz-lKh">
+                                <rect key="frame" x="1" y="125" width="599" height="282"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rc5-FO-YjJ">
                                 <rect key="frame" x="7" y="64" width="586" height="69"/>
                                 <constraints>
@@ -124,31 +127,28 @@
                                     <constraint firstAttribute="height" constant="35" id="WUS-pf-VQk"/>
                                     <constraint firstAttribute="width" constant="209" id="fUW-Cu-UHE"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1.99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Onm-26-rxf">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1.99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Onm-26-rxf">
                                 <rect key="frame" x="504" y="415" width="76" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="76" id="fHM-is-fIR"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="584-dn-aWz">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rights" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="584-dn-aWz">
                                 <rect key="frame" x="1" y="458" width="599" height="98"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="98" id="meB-0w-GGd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rqy-bz-lKh">
-                                <rect key="frame" x="1" y="125" width="599" height="282"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -178,6 +178,13 @@
                             <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
                     </toolbarItems>
+                    <connections>
+                        <outlet property="vGenre" destination="Suc-hM-Cn3" id="wuK-iQ-Hha"/>
+                        <outlet property="vName" destination="Rc5-FO-YjJ" id="qVH-eG-Xaf"/>
+                        <outlet property="vPrice" destination="Onm-26-rxf" id="fHv-8d-IpF"/>
+                        <outlet property="vRights" destination="584-dn-aWz" id="V8k-QJ-3HV"/>
+                        <outlet property="videoImage" destination="rqy-bz-lKh" id="vlQ-Ee-2iV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w4t-O5-K3g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
