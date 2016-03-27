@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S5t-TR-V2a">
-                                <rect key="frame" x="0.0" y="64" width="600" height="499"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="563"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" rowHeight="132" id="KM6-cl-bjT" customClass="MusicVideoTableViewCell" customModule="MusicVideo" customModuleProvider="target">
@@ -82,7 +82,7 @@
                         <constraints>
                             <constraint firstItem="S5t-TR-V2a" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4Zf-be-UZc"/>
                             <constraint firstAttribute="trailing" secondItem="S5t-TR-V2a" secondAttribute="trailing" id="8B7-kE-WVi"/>
-                            <constraint firstItem="S5t-TR-V2a" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="8bf-th-vPK"/>
+                            <constraint firstItem="S5t-TR-V2a" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-64" id="8bf-th-vPK"/>
                             <constraint firstAttribute="bottomMargin" secondItem="S5t-TR-V2a" secondAttribute="bottom" constant="37" id="vkE-0S-2Nk"/>
                         </constraints>
                     </view>
@@ -93,7 +93,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1217" y="410"/>
+            <point key="canvasLocation" x="1219" y="415"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tyL-1t-3M4">
