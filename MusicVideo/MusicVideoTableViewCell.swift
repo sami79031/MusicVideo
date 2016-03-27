@@ -21,6 +21,9 @@ class MusicVideoTableViewCell: UITableViewCell {
     @IBOutlet weak var musicTitle: UILabel!
     
     func updateCell(){
+        musicTitle.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        rank.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        
         musicTitle.text = video!.vName
         rank.text = ("\(video!.vRank)")
         //musicImage.image = UIImage(named: "imageNotAvailable")
@@ -30,6 +33,7 @@ class MusicVideoTableViewCell: UITableViewCell {
             musicImage.image = UIImage(data: video!.vImageData!)
         }else {
             GetViedeoImage(video!, imageView: musicImage)
+            print("Get data from API")
         }
     }
     
