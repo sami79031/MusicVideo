@@ -139,6 +139,9 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="Syj-pO-uFQ" secondAttribute="bottom" constant="19.5" id="ZvG-OX-K77"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="hfp-d2-Xvi" kind="show" id="1nX-Ni-oJW"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="GK4-fB-2uT">
                                         <rect key="frame" x="0.0" y="144" width="600" height="80"/>
@@ -444,6 +447,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w4t-O5-K3g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1931" y="414"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="CHS-OM-wur">
+            <objects>
+                <viewController id="hfp-d2-Xvi" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jGj-A3-zUi"/>
+                        <viewControllerLayoutGuide type="bottom" id="dVf-uC-GNn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6wO-1u-jus">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABOUT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUt-0Q-LJP">
+                                <rect key="frame" x="271" y="289" width="58" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QUt-0Q-LJP" firstAttribute="centerX" secondItem="6wO-1u-jus" secondAttribute="centerX" id="toD-g4-pgZ"/>
+                            <constraint firstItem="QUt-0Q-LJP" firstAttribute="centerY" secondItem="6wO-1u-jus" secondAttribute="centerY" id="xb3-KX-pF0"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mG9-lF-5wj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1936" y="1120"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tyL-1t-3M4">
