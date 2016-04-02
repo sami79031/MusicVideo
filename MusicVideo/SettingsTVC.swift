@@ -17,7 +17,7 @@ class SettingsTVC: UITableViewController {
     @IBOutlet weak var bestImageDisplay: UILabel!
     @IBOutlet weak var APICount: UILabel!
     @IBOutlet weak var sliderCount: UISlider!
-    
+    let defaults = NSUserDefaults.standardUserDefaults()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,13 +25,21 @@ class SettingsTVC: UITableViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.preferedFontChanged), name: UIContentSizeCategoryDidChangeNotification, object: nil)
         title = "settings"
         touchID.on = NSUserDefaults.standardUserDefaults().boolForKey("SecSettings")
+        
+        if let theValue = NSUserDefaults.standardUserDefaults().objectForKey("APICNT"){
+            APICount.text = "\(theValue)"
+            sliderCount.value = Float(theValue as! Int)
+        }
     }
     
     @IBAction func touchIdSec(sender: UISwitch) {
-        let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setBool(touchID.on, forKey: "SecSettings")
     }
     
+    @IBAction func valueChanged(sender: UISlider) {
+        defaults.setObject(Int(sliderCount.value), forKey: "APICNT")
+        APICount.text = ("\(Int(sliderCount.value))")
+    }
 
     func preferedFontChanged(){
         aboutDisplay.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
