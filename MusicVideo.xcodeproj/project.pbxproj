@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		262C3DE81CA89A6400CB4D7A /* MusicVideoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262C3DE71CA89A6400CB4D7A /* MusicVideoDetailVC.swift */; };
+		262C3DEB1CAB522300CB4D7A /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262C3DE91CAB522300CB4D7A /* SettingsTVC.swift */; };
 		26349EBA1C83A528004AC7F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26349EB91C83A528004AC7F7 /* AppDelegate.swift */; };
 		26349EBC1C83A528004AC7F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26349EBB1C83A528004AC7F7 /* ViewController.swift */; };
 		26349EBF1C83A528004AC7F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26349EBD1C83A528004AC7F7 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		262C3DE71CA89A6400CB4D7A /* MusicVideoDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicVideoDetailVC.swift; sourceTree = "<group>"; };
+		262C3DE91CAB522300CB4D7A /* SettingsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
 		26349EB61C83A528004AC7F7 /* MusicVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26349EB91C83A528004AC7F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26349EBB1C83A528004AC7F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				26349EBB1C83A528004AC7F7 /* ViewController.swift */,
 				26F775E81CA0D1790028974D /* MusicVideoTableViewCell.swift */,
 				262C3DE71CA89A6400CB4D7A /* MusicVideoDetailVC.swift */,
+				262C3DE91CAB522300CB4D7A /* SettingsTVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 			files = (
 				26349EEC1C83AD03004AC7F7 /* APIManager.swift in Sources */,
 				26349EBC1C83A528004AC7F7 /* ViewController.swift in Sources */,
+				262C3DEB1CAB522300CB4D7A /* SettingsTVC.swift in Sources */,
 				26349EF11C83BD7B004AC7F7 /* MusicVideo.swift in Sources */,
 				26349EBA1C83A528004AC7F7 /* AppDelegate.swift in Sources */,
 				26349EF61C867A34004AC7F7 /* Reachability.m in Sources */,
