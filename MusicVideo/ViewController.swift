@@ -13,6 +13,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var displayLable: UILabel!
     var videos = [Videos]()
+    var limit = 10
+    let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,6 +22,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.preferedFontChanged), name: UIContentSizeCategoryDidChangeNotification, object: nil)
         reachStatusChanged()
+        
+        refreshControl.addTarget(self, action: #selector(ViewController.refreshView(_:)), forControlEvents: .ValueChanged)
+        tableView.addSubview(refreshControl)
     }
 
 
@@ -27,6 +32,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.videos = videos
         print(reachabilityStatus)
 
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.redColor()]
+        title = ("The iTunes Top \(limit) Music Videos")
         tableView.reloadData()
     }
     
@@ -46,9 +53,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    func refreshView(refreshControl: UIRefreshControl) {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss"
+        let refreshDte = formatter.stringFromDate(NSDate())
+        refreshControl.attributedTitle = NSAttributedString(string: "Refresh")
+        refreshControl.attributedTitle = NSAttributedString(string:"\(refreshDte)")
+        runAPI()
+        
+        refreshControl.endRefreshing()
+    }
+    
+    func getAPICount(){
+        if let theValue = NSUserDefaults.standardUserDefaults().objectForKey("APICNT"){
+            limit = theValue as! Int
+        }
+    }
+    
+    
     func runAPI(){
+        getAPICount()
+        
         let api = APIManager()
-        api.loadData("https://itunes.apple.com/us/rss/topmusicvideos/limit=200/json", completion: didLoadData)
+        api.loadData("https://itunes.apple.com/us/rss/topmusicvideos/limit=\(limit)/json", completion: didLoadData)
     }
     
     func popUp(){
