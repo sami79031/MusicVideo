@@ -52,6 +52,33 @@ class MusicVideoDetailVC: UIViewController {
         
     }
     
+    @IBAction func socialMedia(sender: UIBarButtonItem) {
+        shareMedia()
+        
+    }
+    
+    func shareMedia(){
+        let act1 = "Have you checked the Music Video?"
+        let act2 = ("\(videos.vName) by \(videos.vArtist)")
+        let act3 = "Watch it"
+        let act4 = videos.vLinkToiTunes
+        let act5 = "(Shared with the Music Video App - Step it UP!)"
+        
+        let activityVC = UIActivityViewController(activityItems: [act1, act2, act3, act4, act5], applicationActivities: nil)
+        
+        //if you want to exclude apps for sharing
+        //activityVC.excludedActivityTypes = [UIActivityTypeMail, UIActivityTypeMessage]
+        
+        activityVC.completionWithItemsHandler = {
+            (activity, success, items, error) in
+            
+            if activity == UIActivityTypeMail {
+                print("email selected")
+            }
+        }
+        
+        self.presentViewController(activityVC, animated: true, completion: nil)
+    }
     
     /*
     // MARK: - Navigation
