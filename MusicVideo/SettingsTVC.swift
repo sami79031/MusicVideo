@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class SettingsTVC: UITableViewController {
+class SettingsTVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak var aboutDisplay: UILabel!
     @IBOutlet weak var feedbackDisplay: UILabel!
@@ -52,5 +53,31 @@ class SettingsTVC: UITableViewController {
     deinit{
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIContentSizeCategoryDidChangeNotification, object: nil)
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 && indexPath.row == 1{
+            let mailComposer = configureMail()
+            
+            if MFMailComposeViewController.canSendMail(){
+                self.presentViewController(mailComposer, animated: true, completion: nil)
+            }else{
+                mailAlert()
+            }
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+    }
+    
+    func configureMail()-> MFMailComposeViewController{
+        let mailComposer = MFMailComposeViewController()
+        mailComposer.mailComposeDelegate = self
+        mailComposer.setToRecipients(["sami79031@gmail.com"])
+        
+        return mailComposer
+    }
+    
+    func mailAlert(){
+         print("NO email!!!")
+    }
+    
     
 }
