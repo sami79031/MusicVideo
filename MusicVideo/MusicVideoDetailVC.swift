@@ -42,7 +42,7 @@ class MusicVideoDetailVC: UIViewController {
 
     
     @IBAction func playVideo(sender: UIBarButtonItem) {
-        let url = NSURL(string: videos.vVideoUrl)
+        let url = NSURL(string: videos.vVideoUrl!)
         let player = AVPlayer(URL: url!)
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
@@ -165,7 +165,7 @@ class MusicVideoDetailVC: UIViewController {
         let act4 = videos.vLinkToiTunes
         let act5 = "(Shared with the Music Video App - Step it UP!)"
         
-        let activityVC = UIActivityViewController(activityItems: [act1, act2, act3, act4, act5], applicationActivities: nil)
+        let activityVC = UIActivityViewController(activityItems: [act1, act2, act3, act4!, act5], applicationActivities: nil)
         
         //if you want to exclude apps for sharing
         //activityVC.excludedActivityTypes = [UIActivityTypeMail, UIActivityTypeMessage]

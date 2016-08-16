@@ -15,6 +15,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var videos = [Videos]()
     var limit = 10
     let refreshControl = UIRefreshControl()
+    var filterSearch = [Videos]()
+    let resultSearchController  = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,6 +37,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.redColor()]
         title = ("The iTunes Top \(limit) Music Videos")
+        
+        resultSearchController.searchResultsUpdater = self
+        definesPresentationContext = true
+        resultSearchController.dimsBackgroundDuringPresentation = false
+        resultSearchController.searchBar.placeholder = "Search for Artist"
+        resultSearchController.searchBar.searchBarStyle = UISearchBarStyle.Prominent
+        
+        tableView.tableHeaderView = resultSearchController.searchBar
+        
         tableView.reloadData()
     }
     
@@ -54,14 +66,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func refreshView(refreshControl: UIRefreshControl) {
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss"
-        let refreshDte = formatter.stringFromDate(NSDate())
-        refreshControl.attributedTitle = NSAttributedString(string: "Refresh")
-        refreshControl.attributedTitle = NSAttributedString(string:"\(refreshDte)")
-        runAPI()
+        if resultSearchController.active{
+            refreshControl.attributedTitle = NSAttributedString(string: "No refresh allowed in search")
+            refreshControl.endRefreshing()
+        }else{
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss"
+            let refreshDte = formatter.stringFromDate(NSDate())
+            refreshControl.attributedTitle = NSAttributedString(string: "Refresh")
+            refreshControl.attributedTitle = NSAttributedString(string:"\(refreshDte)")
+            runAPI()
+            
+            refreshControl.endRefreshing()
+        }
         
-        refreshControl.endRefreshing()
+        
     }
     
     func getAPICount(){
@@ -119,6 +138,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if resultSearchController.active{
+            return filterSearch.count
+        }
         return videos.count
     }
     
@@ -126,9 +148,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let cell = tableView.dequeueReusableCellWithIdentifier(storyboard.cellReuseIdentifier, forIndexPath: indexPath) as? MusicVideoTableViewCell
         
-         cell?.video = videos[indexPath.row]
-        return cell!
+        if resultSearchController.active{
+           cell?.video = filterSearch[indexPath.row]
+        }else{
+           cell?.video = videos[indexPath.row]
+        }
         
+        return cell!
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -147,7 +173,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == storyboard.segueIdentifier{
             if let indexPath = tableView.indexPathForSelectedRow{
-                let video = videos[indexPath.row]
+                let video: Videos
+                if resultSearchController.active{
+                    video = filterSearch[indexPath.row]
+                }else{
+                    video = videos[indexPath.row]
+                }
+                
                 let dvc = segue.destinationViewController as! MusicVideoDetailVC
                 dvc.videos = video
             }
@@ -155,6 +187,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
      }
     
 
+    
+    
+    func filterSearch(searchText: String){
+        filterSearch = videos.filter { videos in
+            return videos.vName!.lowercaseString.containsString(searchText.lowercaseString) || videos.vArtist!.lowercaseString.containsString(searchText.lowercaseString) || "\(videos.vRank)".lowercaseString.containsString(searchText.lowercaseString)
+        }
+        tableView.reloadData()
+    }
 }
+
+extension ViewController: UISearchResultsUpdating{
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        searchController.searchBar.text!.lowercaseString
+        filterSearch(searchController.searchBar.text!)
+    }
+}
+
+
+
+
 
 
