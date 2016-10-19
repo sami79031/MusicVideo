@@ -34,27 +34,27 @@ class MusicVideoDetailVC: UIViewController {
         vGenre.text = videos?.vGenre
         
         if videos?.vImageData != nil{
-            videoImage.image = UIImage(data: (videos?.vImageData)!)
+            videoImage.image = UIImage(data: (videos?.vImageData)! as Data)
         }else{
             videoImage.image = UIImage(named: "imageNotAvailable")
         }
     }
 
     
-    @IBAction func playVideo(sender: UIBarButtonItem) {
-        let url = NSURL(string: videos.vVideoUrl!)
-        let player = AVPlayer(URL: url!)
+    @IBAction func playVideo(_ sender: UIBarButtonItem) {
+        let url = URL(string: videos.vVideoUrl!)
+        let player = AVPlayer(url: url!)
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
         
-        self.presentViewController(playerViewController, animated: true){
+        self.present(playerViewController, animated: true){
             playerViewController.player?.play()
         }
         
     }
     
-    @IBAction func socialMedia(sender: UIBarButtonItem) {
-        securitySwitch = NSUserDefaults.standardUserDefaults().boolForKey("SecSettings")
+    @IBAction func socialMedia(_ sender: UIBarButtonItem) {
+        securitySwitch = UserDefaults.standard.bool(forKey: "SecSettings")
         
         switch securitySwitch {
         case true:
@@ -68,8 +68,8 @@ class MusicVideoDetailVC: UIViewController {
     
     func touchIDCheck(){
         // Create an alert
-        let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "continue", style: UIAlertActionStyle.Cancel, handler: nil))
+        let alert = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "continue", style: UIAlertActionStyle.cancel, handler: nil))
         
         
         // Create the Local Authentication Context
@@ -79,39 +79,39 @@ class MusicVideoDetailVC: UIViewController {
         
         
         // Check if we can access local device authentication
-        if context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error:&touchIDError) {
+        if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error:&touchIDError) {
             // Check what the authentication response was
-            context.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString, reply: { (success, policyError) -> Void in
+            context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: reasonString, reply: { (success, policyError) -> Void in
                 if success {
                     // User authenticated using Local Device Authentication Successfully!
-                    dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+                    DispatchQueue.main.async { [unowned self] in
                         self.shareMedia()
                     }
                 } else {
                     
                     alert.title = "Unsuccessful!"
                     
-                    switch LAError(rawValue: policyError!.code)! {
+                    switch LAError.Code(rawValue: policyError!._code)! {
                         
-                    case .AppCancel:
+                    case .appCancel:
                         alert.message = "Authentication was cancelled by application"
                         
-                    case .AuthenticationFailed:
+                    case .authenticationFailed:
                         alert.message = "The user failed to provide valid credentials"
                         
-                    case .PasscodeNotSet:
+                    case .passcodeNotSet:
                         alert.message = "Passcode is not set on the device"
                         
-                    case .SystemCancel:
+                    case .systemCancel:
                         alert.message = "Authentication was cancelled by the system"
                         
-                    case .TouchIDLockout:
+                    case .touchIDLockout:
                         alert.message = "Too many failed attempts."
                         
-                    case .UserCancel:
+                    case .userCancel:
                         alert.message = "You cancelled the request"
                         
-                    case .UserFallback:
+                    case .userFallback:
                         alert.message = "Password not accepted, must use Touch-ID"
                         
                     default:
@@ -120,8 +120,8 @@ class MusicVideoDetailVC: UIViewController {
                     }
                     
                     // Show the alert
-                    dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-                        self.presentViewController(alert, animated: true, completion: nil)
+                    DispatchQueue.main.async { [unowned self] in
+                        self.present(alert, animated: true, completion: nil)
                     }
                 }
             })
@@ -132,18 +132,18 @@ class MusicVideoDetailVC: UIViewController {
             alert.title = "Error"
             
             // Set the error alert message with more information
-            switch LAError(rawValue: touchIDError!.code)! {
+            switch LAError.Code(rawValue: touchIDError!.code)! {
                 
-            case .TouchIDNotEnrolled:
+            case .touchIDNotEnrolled:
                 alert.message = "Touch ID is not enrolled"
                 
-            case .TouchIDNotAvailable:
+            case .touchIDNotAvailable:
                 alert.message = "TouchID is not available on the device"
                 
-            case .PasscodeNotSet:
+            case .passcodeNotSet:
                 alert.message = "Passcode has not been set"
                 
-            case .InvalidContext:
+            case .invalidContext:
                 alert.message = "The context is invalid"
                 
             default:
@@ -151,8 +151,8 @@ class MusicVideoDetailVC: UIViewController {
             }
             
             // Show the alert
-            dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-                self.presentViewController(alert, animated: true, completion: nil)
+            DispatchQueue.main.async { [unowned self] in
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -173,12 +173,12 @@ class MusicVideoDetailVC: UIViewController {
         activityVC.completionWithItemsHandler = {
             (activity, success, items, error) in
             
-            if activity == UIActivityTypeMail {
+            if activity == UIActivityType.mail {
                 print("email selected")
             }
         }
         
-        self.presentViewController(activityVC, animated: true, completion: nil)
+        self.present(activityVC, animated: true, completion: nil)
     }
     
     /*

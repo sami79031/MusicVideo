@@ -21,28 +21,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.reachStatusChanged), name: "ReachStatusChanged", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.reachStatusChanged), name: NSNotification.Name(rawValue: "ReachStatusChanged"), object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.preferedFontChanged), name: UIContentSizeCategoryDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.preferedFontChanged), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
         reachStatusChanged()
         
-        refreshControl.addTarget(self, action: #selector(ViewController.refreshView(_:)), forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(ViewController.refreshView(_:)), for: .valueChanged)
         tableView.addSubview(refreshControl)
     }
 
 
-    func didLoadData(videos: [Videos]){
+    func didLoadData(_ videos: [Videos]){
         self.videos = videos
         print(reachabilityStatus)
 
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.redColor()]
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.red]
         title = ("The iTunes Top \(limit) Music Videos")
         
         resultSearchController.searchResultsUpdater = self
         definesPresentationContext = true
         resultSearchController.dimsBackgroundDuringPresentation = false
         resultSearchController.searchBar.placeholder = "Search for Artist"
-        resultSearchController.searchBar.searchBarStyle = UISearchBarStyle.Prominent
+        resultSearchController.searchBar.searchBarStyle = UISearchBarStyle.prominent
         
         tableView.tableHeaderView = resultSearchController.searchBar
         
@@ -52,7 +52,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func reachStatusChanged(){
         switch reachabilityStatus {
         case NOACCESS : //view.backgroundColor = UIColor.redColor()
-        dispatch_async(dispatch_get_main_queue()){
+        DispatchQueue.main.async{
           self.popUp()  
         }
         
@@ -65,14 +65,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    func refreshView(refreshControl: UIRefreshControl) {
-        if resultSearchController.active{
+    func refreshView(_ refreshControl: UIRefreshControl) {
+        if resultSearchController.isActive{
             refreshControl.attributedTitle = NSAttributedString(string: "No refresh allowed in search")
             refreshControl.endRefreshing()
         }else{
-            let formatter = NSDateFormatter()
+            let formatter = DateFormatter()
             formatter.dateFormat = "E, dd MMM yyyy HH:mm:ss"
-            let refreshDte = formatter.stringFromDate(NSDate())
+            let refreshDte = formatter.string(from: Date())
             refreshControl.attributedTitle = NSAttributedString(string: "Refresh")
             refreshControl.attributedTitle = NSAttributedString(string:"\(refreshDte)")
             runAPI()
@@ -84,7 +84,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func getAPICount(){
-        if let theValue = NSUserDefaults.standardUserDefaults().objectForKey("APICNT"){
+        if let theValue = UserDefaults.standard.object(forKey: "APICNT"){
             limit = theValue as! Int
         }
     }
@@ -98,16 +98,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func popUp(){
-        let alert = UIAlertController(title: "No Internet access", message: "Turn it on", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) {
+        let alert = UIAlertController(title: "No Internet access", message: "Turn it on", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
             action -> () in
             print("Cancel")
         }
-        let deleteAction = UIAlertAction(title: "Delete", style: .Destructive) {
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) {
             action -> () in
             print("delete")
         }
-        let okAction = UIAlertAction(title: "ok", style: .Default) {
+        let okAction = UIAlertAction(title: "ok", style: .default) {
             action -> () in
             print("ok")
         }
@@ -116,7 +116,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         alert.addAction(deleteAction)
         alert.addAction(okAction)
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
         
         
         
@@ -129,39 +129,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "ReachStatusChanged", object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIContentSizeCategoryDidChangeNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ReachStatusChanged"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int{
+    func numberOfSections(in tableView: UITableView) -> Int{
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if resultSearchController.active{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if resultSearchController.isActive{
             return filterSearch.count
         }
         return videos.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(storyboard.cellReuseIdentifier, forIndexPath: indexPath) as? MusicVideoTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: storyboard.cellReuseIdentifier, for: indexPath) as? MusicVideoTableViewCell
         
-        if resultSearchController.active{
-           cell?.video = filterSearch[indexPath.row]
+        if resultSearchController.isActive{
+           cell?.video = filterSearch[(indexPath as NSIndexPath).row]
         }else{
-           cell?.video = videos[indexPath.row]
+           cell?.video = videos[(indexPath as NSIndexPath).row]
         }
         
         return cell!
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 132
     }
     
-    private struct storyboard {
+    fileprivate struct storyboard {
         static let cellReuseIdentifier = "cell"
         static let segueIdentifier = "musicDetail"
     }
@@ -170,17 +170,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == storyboard.segueIdentifier{
             if let indexPath = tableView.indexPathForSelectedRow{
                 let video: Videos
-                if resultSearchController.active{
-                    video = filterSearch[indexPath.row]
+                if resultSearchController.isActive{
+                    video = filterSearch[(indexPath as NSIndexPath).row]
                 }else{
-                    video = videos[indexPath.row]
+                    video = videos[(indexPath as NSIndexPath).row]
                 }
                 
-                let dvc = segue.destinationViewController as! MusicVideoDetailVC
+                let dvc = segue.destination as! MusicVideoDetailVC
                 dvc.videos = video
             }
         }
@@ -189,17 +189,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     
     
-    func filterSearch(searchText: String){
+    func filterSearch(_ searchText: String){
         filterSearch = videos.filter { videos in
-            return videos.vName!.lowercaseString.containsString(searchText.lowercaseString) || videos.vArtist!.lowercaseString.containsString(searchText.lowercaseString) || "\(videos.vRank)".lowercaseString.containsString(searchText.lowercaseString)
+            return videos.vName!.lowercased().contains(searchText.lowercased()) || videos.vArtist!.lowercased().contains(searchText.lowercased()) || "\(videos.vRank)".lowercased().contains(searchText.lowercased())
         }
         tableView.reloadData()
     }
 }
 
 extension ViewController: UISearchResultsUpdating{
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        searchController.searchBar.text!.lowercaseString
+    func updateSearchResults(for searchController: UISearchController) {
+        _ = searchController.searchBar.text!.lowercased()
         filterSearch(searchController.searchBar.text!)
     }
 }
